@@ -15,7 +15,7 @@ server.listen(port, () => {
 */
 const express = require("express");
 const app=express();
-const port=3000;
+const port= process.env.port || 3000;
 
 //motor de plantillas
 app.set("view engine","ejs")
