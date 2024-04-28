@@ -2,6 +2,23 @@ const express = require("express");
 const app=express();
 const port= process.env.PORT || 3000;
 
+// Conexion a base de datos
+const mongoose = require('mongoose');
+
+const user = "edamago";
+const password = "q27NUoQAa78A2kSy";
+const dbname= "veterinaria"
+const uri = `mongodb+srv://${user}:${password}@cluster0.sbhm3a3.mongodb.net/${dbname}?retryWrites=true&w=majority&appName=Cluster0`;
+
+mongoose.connect(uri)
+        .then(()=> console.log("Base de datos conectada mongodb"))
+        .catch((error)=>console.log(error))
+
+const Cat = mongoose.model('Cat', { name: String });
+
+//const kitty = new Cat({ name: 'Zildjian' });
+//kitty.save().then(() => console.log('meow'));
+
 //motor de plantillas
 app.set("view engine","ejs")
 app.set("views",__dirname + "/views")
