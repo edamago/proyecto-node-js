@@ -12,8 +12,8 @@ const user = "edamago"
 const password = "q27NUoQAa78A2kSy"
 const dbname = "veterinaria"
 
-//const uri = `mongodb+srv://${process.env.USER}:${process.env.PASSWORD}@cluster0.sbhm3a3.mongodb.net/${process.env.DBNAME}?retryWrites=true&w=majority&appName=Cluster0`;
-const uri = `mongodb+srv://${user}:${password}@cluster0.sbhm3a3.mongodb.net/${dbname}?retryWrites=true&w=majority&appName=Cluster0`;
+const uri = `mongodb+srv://${process.env.USER}:${process.env.PASSWORD}@cluster0.sbhm3a3.mongodb.net/${process.env.DBNAME}?retryWrites=true&w=majority&appName=Cluster0`;
+//const uri = `mongodb+srv://${user}:${password}@cluster0.sbhm3a3.mongodb.net/${dbname}?retryWrites=true&w=majority&appName=Cluster0`;
 mongoose.connect(uri)
         .then(()=> console.log("Base de datos conectada mongodb"))
         .catch((error)=>console.log(error))
