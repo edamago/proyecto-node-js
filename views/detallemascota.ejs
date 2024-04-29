@@ -9,35 +9,27 @@
             <% } %>
 
             <% if (!error) { %>
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">Nombre</th>
-                            <th scope="col">Descripcion</th>
-                            <th scope="col">Accion</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-  
-                        <tr>
-                            <th scope="row"><%= mascota.id %></th>
-                            <td><%= mascota.nombre %></td>
-                            <td><%= mascota.descripcion %></td>
-                            <td>
-                                <button 
-                                    class = "btn btn-danger btn-sm" 
-                                    id = "btnEliminar"
-                                    data-id="<%= mascota.id %>"
-                                    >
-                                    Eliminar
+                
+                <form id="formularioEditar" data-id="<%= mascota.id %>">
+                    <input id="nombreInput" type="text" class="form-control my-2" name="nombre" value="<%= mascota.nombre %>">
+                    <input id="descripcionInput" type="text" class="form-control my-2" name="descripcion" value="<%= mascota.descripcion %>">
+                    <button id="btnEditar"
+                            class="btn btn-warning btn-block" 
+                            type="submit" >
+                            Editar
+                    </button>
+                    
+                </form>
+                <button 
+                    class = "btn btn-danger btn-sm" 
+                    id = "btnEliminar"
+                    data-id="<%= mascota.id %>"
+                    >
+                    Eliminar
 
-                                </button>
-                            </td>
-                        </tr> 
-              
-                    </tbody>
-                </table>
+                </button>
+
+                
             <% } %>
         
         <a href="/mascotas" class="btn btn-dark btn-block">Volver a Mascotas</a>
@@ -70,4 +62,36 @@
         }
 
     })
+
+    const formularioEditar = document.querySelector("#formularioEditar")
+
+    formularioEditar.addEventListener("submit",async (e)=>{
+        e.preventDefault()
+        console.log("submit")
+        
+        const id = formularioEditar.dataset.id
+        const nombre = formularioEditar.elements["nombre"].value
+        const descripcion = document.querySelector("#descripcionInput").value
+        console.log(id, " ",nombre," ",descripcion)
+
+        try{
+            const data = await fetch(`/mascotas/${id}`,
+                                {
+                                    method: "put",
+                                    headers: {'Content-Type':'application/json'},
+                                    body: JSON.stringify({nombre, descripcion})
+                                })
+            const res = await data.json()
+            console.log(res)
+            if (res.estado){
+                window.location.href = "/mascotas"
+            }else{
+                console.log(res)
+            }
+        }catch(error){
+            console.log(error)
+        }
+        
+    })
+
 </script>
