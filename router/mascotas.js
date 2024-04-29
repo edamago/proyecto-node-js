@@ -9,7 +9,7 @@ router.get("/",async (req,res)=>{
     try {
         const arrayMascotasDB = await Mascota.find()
         //console.log(arrayMascotasDB)    
-        res.render("mascotas",{
+        res.render("mascota/mascotas",{
             arrayMascotas: arrayMascotasDB
             /*arrayMascotas: [
                 {id: '1', nombre: "Lola", descripcion: "Perro hembra pequaña"},
@@ -26,7 +26,7 @@ router.get("/",async (req,res)=>{
 })
 
 router.get("/crear",(req,res)=>{
-    res.render("crearmascota")
+    res.render("mascota/crearmascota")
 })
 
 router.post("/",async(req,res)=>{
@@ -38,7 +38,7 @@ router.post("/",async(req,res)=>{
         
         await Mascota.create(body)
         
-        res.redirect("/mascotas")
+        res.redirect("mascotas")
     } catch (error) {
         console.log(error)
     }
@@ -50,14 +50,14 @@ router.get("/:id",async(req,res)=>{
         const mascotaDB = await Mascota.findOne({_id: id})
         console.log(mascotaDB)
 
-        res.render("detallemascota",{
+        res.render("mascota/detallemascota",{
             mascota : mascotaDB,
             error : false
         })
 
     } catch (error) {
         console.log(error)
-        res.render("detallemascota",{
+        res.render("mascota/detallemascota",{
             error : true,
             mensaje : "No se encuentra el id seleccionado"
         })
